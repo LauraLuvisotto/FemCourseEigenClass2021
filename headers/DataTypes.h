@@ -9,18 +9,20 @@
 #ifndef __DATATYPES__
 #define __DATATYPES__
 
+///\cond
 #include <cmath>
 #include <stdio.h>
 #include <vector>
 #include <functional>
-//#include "TVecNum.h"
 #include <Eigen/Dense>
+///\endcond
 #include "tpanic.h"
 
 using namespace Eigen;
 
 typedef Eigen::MatrixXd MatrixDouble ;
-typedef Eigen::VectorXi VecInt;
+//typedef Eigen::VectorXi VecInt;
+typedef Eigen::Matrix<int64_t, Dynamic, 1> VecInt;
 typedef Eigen::VectorXd VecDouble;
 
 

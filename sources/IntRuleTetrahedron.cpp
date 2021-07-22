@@ -6,12 +6,14 @@
 //
 //
 
+///\cond
 #include <stdio.h>
+///\endcond
 #include "IntRuleTetrahedron.h"
-#include "tpanic.h"
 
-static int ComputingSymmetricCubatureRule(int order, MatrixDouble &Points, VecDouble &Weights);
-void TransformBarycentricCoordInCartesianCoord(long double baryvec[], long double weightvec[], MatrixDouble &Points, VecDouble &Weight);
+
+static int ComputingSymmetricCubatureRule(int order, MatrixDouble& Points, VecDouble& Weights);
+void TransformBarycentricCoordInCartesianCoord(long double baryvec[], long double weightvec[], MatrixDouble& Points, VecDouble& Weight);
 
 IntRuleTetrahedron::IntRuleTetrahedron() {
 
@@ -27,7 +29,7 @@ void IntRuleTetrahedron::SetOrder(int order) {
         DebugStop();
     }
 
-    fPoints.resize(3,1);
+    fPoints.resize(3, 1);
     fWeights.resize(1);
     fOrder = order;
     ComputingSymmetricCubatureRule(fOrder, fPoints, fWeights);
@@ -420,66 +422,66 @@ long double QUAD_TETRA_P14_pts[Length(QUAD_TETRA_P14_wts) * 4] = {
     .08672172833222153946294387400858277L)
 };
 
-int ComputingSymmetricCubatureRule(int order, MatrixDouble &Points, VecDouble &Weights) {
+int ComputingSymmetricCubatureRule(int order, MatrixDouble& Points, VecDouble& Weights) {
     if (order > 14) order = 14;
-    int NRGAUPO[15] = {1, 1, 4, 8, 14, 14, 24, 35, 46, 61, 81, 109, 140, 171, 236};
+    int NRGAUPO[15] = { 1, 1, 4, 8, 14, 14, 24, 35, 46, 61, 81, 109, 140, 171, 236 };
     double npoints = NRGAUPO[order];
 
     Points.resize(npoints, 3);
     Weights.resize(npoints);
 
     switch (order) {
-        case 0:
-        case 1:
-            TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P1_pts, QUAD_TETRA_P1_wts, Points, Weights);
-            break;
-        case 2:
-            TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P2_pts, QUAD_TETRA_P2_wts, Points, Weights);
-            break;
-        case 3:
-            TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P3_pts, QUAD_TETRA_P3_wts, Points, Weights);
-            break;
-        case 4:
-            TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P4_pts, QUAD_TETRA_P4_wts, Points, Weights);
-            break;
-        case 5:
-            TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P5_pts, QUAD_TETRA_P5_wts, Points, Weights);
-            break;
-        case 6:
-            TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P6_pts, QUAD_TETRA_P6_wts, Points, Weights);
-            break;
-        case 7:
-            TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P7_pts, QUAD_TETRA_P7_wts, Points, Weights);
-            break;
-        case 8:
-            TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P8_pts, QUAD_TETRA_P8_wts, Points, Weights);
-            break;
-        case 9:
-            TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P9_pts, QUAD_TETRA_P9_wts, Points, Weights);
-            break;
-        case 10:
-            TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P10_pts, QUAD_TETRA_P10_wts, Points, Weights);
-            break;
-        case 11:
-            TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P11_pts, QUAD_TETRA_P11_wts, Points, Weights);
-            break;
-        case 12:
-            TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P12_pts, QUAD_TETRA_P12_wts, Points, Weights);
-            break;
-        case 13:
-            TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P13_pts, QUAD_TETRA_P13_wts, Points, Weights);
-            break;
-        case 14:
-            TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P14_pts, QUAD_TETRA_P14_wts, Points, Weights);
-            break;
-        default:
-            std::cout << "TPZIntRuleT3D not implemented by order " << order << std::endl;
+    case 0:
+    case 1:
+        TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P1_pts, QUAD_TETRA_P1_wts, Points, Weights);
+        break;
+    case 2:
+        TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P2_pts, QUAD_TETRA_P2_wts, Points, Weights);
+        break;
+    case 3:
+        TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P3_pts, QUAD_TETRA_P3_wts, Points, Weights);
+        break;
+    case 4:
+        TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P4_pts, QUAD_TETRA_P4_wts, Points, Weights);
+        break;
+    case 5:
+        TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P5_pts, QUAD_TETRA_P5_wts, Points, Weights);
+        break;
+    case 6:
+        TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P6_pts, QUAD_TETRA_P6_wts, Points, Weights);
+        break;
+    case 7:
+        TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P7_pts, QUAD_TETRA_P7_wts, Points, Weights);
+        break;
+    case 8:
+        TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P8_pts, QUAD_TETRA_P8_wts, Points, Weights);
+        break;
+    case 9:
+        TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P9_pts, QUAD_TETRA_P9_wts, Points, Weights);
+        break;
+    case 10:
+        TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P10_pts, QUAD_TETRA_P10_wts, Points, Weights);
+        break;
+    case 11:
+        TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P11_pts, QUAD_TETRA_P11_wts, Points, Weights);
+        break;
+    case 12:
+        TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P12_pts, QUAD_TETRA_P12_wts, Points, Weights);
+        break;
+    case 13:
+        TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P13_pts, QUAD_TETRA_P13_wts, Points, Weights);
+        break;
+    case 14:
+        TransformBarycentricCoordInCartesianCoord(QUAD_TETRA_P14_pts, QUAD_TETRA_P14_wts, Points, Weights);
+        break;
+    default:
+        std::cout << "TPZIntRuleT3D not implemented by order " << order << std::endl;
     }
 
     return order;
 }
 
-void TransformBarycentricCoordInCartesianCoord(long double baryvec[], long double weightvec[], MatrixDouble &Points, VecDouble &Weights) {
+void TransformBarycentricCoordInCartesianCoord(long double baryvec[], long double weightvec[], MatrixDouble& Points, VecDouble& Weights) {
 
     for (int i = 0; i < Weights.size(); i++) {
         Weights[i] = weightvec[i];

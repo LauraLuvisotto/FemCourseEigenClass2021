@@ -1,14 +1,13 @@
 
 
+///\cond
 #include <iostream>
 #include <math.h>
-#include "DataTypes.h"
+///\endcond
 #include "IntRule1d.h"
 #include "IntRuleQuad.h"
 #include "IntRuleTriangle.h"
 #include "IntRuleTetrahedron.h"
-#include "tpanic.h"
-#include "DataTypes.h"
 
 #define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>

@@ -8,9 +8,12 @@
 #ifndef ShapeQuad_h
 #define ShapeQuad_h
 
-#include "DataTypes.h"
 #include "TopologyQuad.h"
 
+/**
+@brief Shape functions associated with a quadrilateral
+@ingroup shape
+*/
 class ShapeQuad : public TopologyQuad
 {
 public:

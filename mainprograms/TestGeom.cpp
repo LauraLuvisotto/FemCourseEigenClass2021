@@ -1,12 +1,15 @@
 
-
+///\cond
 #include <iostream>
 #include <math.h>
-#include "DataTypes.h"
-#include "Geom1d.h"
-#include "tpanic.h"
-#include "DataTypes.h"
+///\endcond
 
+#include "Geom1d.h"
+#include "GeomQuad.h"
+#include "GeomTriangle.h"
+#include "GeomTetrahedron.h"
+
+#define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
 using namespace Catch::literals;
 
@@ -26,7 +29,41 @@ void MasterCo(MElementType elt, MatrixDouble &cornerco)
             cornerco(0,0) = -1.;
             cornerco(0,1) = 1.;
             break;
-            
+        case ETriangle:
+            cornerco.resize(2,3);
+            cornerco(0,0) = 0.;
+            cornerco(1,0) = 0.;
+            cornerco(0,1) = 1.;
+            cornerco(1,1) = 0.;
+            cornerco(0,2) = 0.;
+            cornerco(1,2) = 1.;
+            break;
+        case EQuadrilateral:
+            cornerco.resize(2,4);
+            cornerco(0,0) = -1.;
+            cornerco(1,0) = -1.;
+            cornerco(0,1) = 1.;
+            cornerco(1,1) = -1.;
+            cornerco(0,2) = 1.;
+            cornerco(1,2) = 1.;
+            cornerco(0,3) = -1.;
+            cornerco(1,3) = 1.;
+            break;
+        case ETetraedro:
+            cornerco.resize(3,4);
+            cornerco(0,0) = 0.;
+            cornerco(1,0) = 0.;
+            cornerco(2,0) = 0.;
+            cornerco(0,1) = 1.;
+            cornerco(1,1) = 0.;
+            cornerco(2,1) = 0.;
+            cornerco(0,2) = 0.;
+            cornerco(1,2) = 1.;
+            cornerco(2,2) = 0.;
+            cornerco(0,3) = 0.;
+            cornerco(1,3) = 0.;
+            cornerco(2,3) = 1.;
+            break;
         default:
             DebugStop();
             break;
@@ -41,9 +78,6 @@ void ComputeX(VecDouble &xi, double fac, VecDouble &x, MatrixDouble &gradx)
     cornerco *= fac;
     x.resize(cornerco.rows());
     gradx.resize(cornerco.rows(),Geom::Dimension);
-    typename Geom::LocIntRule intrule(2);
-    int npoints = intrule.NPoints();
-    const int dim = Geom::Dimension;
     Geom::X(xi,cornerco,x);
     Geom::GradX(xi,cornerco,x,gradx);
 
@@ -64,7 +98,7 @@ void CheckGeom(double factor)
         intrule.Point(ip, point, weight);
         VecDouble x;
         MatrixDouble gradx;
-        ComputeX<Geom1d>(point,factor,x,gradx);
+        ComputeX<Geom>(point,factor,x,gradx);
         for(int i=0; i<dim; i++)
         {
             REQUIRE_THAT(x[i], Catch::Matchers::WithinAbs(point[i],1.e-8));
@@ -83,6 +117,18 @@ TEST_CASE("x_compute","[geometry]")
     SECTION("Geom1d")
     {
         CheckGeom<Geom1d>(1.);
+    }
+    SECTION("GeomQuad")
+    {
+        CheckGeom<GeomQuad>(1.);
+    }
+    SECTION("GeomTriangle")
+    {
+        CheckGeom<GeomTriangle>(1.);
+    }
+    SECTION("GeomTetrahedra")
+    {
+        CheckGeom<GeomTetrahedron>(1.);
     }
 }
 
@@ -114,6 +160,18 @@ TEST_CASE("geometry_arg_out_of_range","[geometry]")
     SECTION("Geom1d")
     {
         TestOutofBounds<Geom1d>();
+    }
+    SECTION("GeomTriangle")
+    {
+        TestOutofBounds<GeomTriangle>();
+    }
+    SECTION("GeomQuad")
+    {
+        TestOutofBounds<GeomQuad>();
+    }
+    SECTION("GeomTetrahedron")
+    {
+        TestOutofBounds<GeomTetrahedron>();
     }
 }
 

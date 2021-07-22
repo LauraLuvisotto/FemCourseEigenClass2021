@@ -8,9 +8,12 @@
 #ifndef ShapeTetrahedron_h
 #define ShapeTetrahedron_h
 
-#include "DataTypes.h"
 #include "TopologyTetrahedron.h"
 
+/**
+@brief Shape functions associated with a tetrahedron
+@ingroup shape
+*/
 class ShapeTetrahedron : public TopologyTetrahedron
 {
 public:

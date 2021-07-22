@@ -9,8 +9,10 @@
 #ifndef FemSC_Panic_h
 #define FemSC_Panic_h
 
+///\cond
 #include <iostream>
 #include <exception>
+///\endcond
 
 #ifdef USING_MKL
 // #include "pzerror.h" // This is a NeoPZ file, and should be dependent on its linking

@@ -9,9 +9,15 @@
 #ifndef __FemSC__IntRuleTetrahedron__
 #define __FemSC__IntRuleTetrahedron__
 
+///\cond
 #include <stdio.h>
+///\endcond
 #include "IntRule.h"
 
+/**
+@brief Integration rule associated with a tetrahedron
+@ingroup integration
+*/
 class IntRuleTetrahedron : public IntRule
 {
   
@@ -24,7 +30,7 @@ class IntRuleTetrahedron : public IntRule
     IntRuleTetrahedron(int order);
 
     // Dimension of the integration rule
-    virtual int Dimension() override{
+    virtual int Dimension() const override{
         return 3;
     }
     
@@ -35,7 +41,7 @@ class IntRuleTetrahedron : public IntRule
     }
 
     // Return the maximum polynomial order that can be integrated exactly
-    virtual int MaxOrder() override
+    virtual int MaxOrder() const override
     {
         return gMaxOrder();
     }

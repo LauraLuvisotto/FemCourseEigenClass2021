@@ -6,7 +6,7 @@
 
 #include "GeoNode.h"
 
-void GeoNode::Print(std::ostream &out) {
+void GeoNode::Print(std::ostream &out) const {
 
 
     out << "Coordinates:\t";

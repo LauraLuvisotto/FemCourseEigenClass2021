@@ -11,6 +11,10 @@
 #include "Topology1d.h"
 #include "GeoElementSide.h"
 
+/**
+ @brief One dimensional geometry
+ @ingroup geometrymap
+ */
 class Geom1d : public Topology1d
 {
 public:
@@ -27,13 +31,26 @@ public:
     // Operator of copy
     Geom1d &operator=(const Geom1d &copy);
     
-    // Computes the shape functions associated with the geometric map
+    /** @brief Computes the value of the shape functions associated with the geometric map at a given parametric coordinates
+     * @param xi [input] A vector containing the d parametric coordinates of the point to evaluate shape functions. (d = dimension of this geometric map)
+     * @param phi [output] A vector to fill with the sampled values of shape function
+     * @param dphi [output] A matrix to fill with the derivatives of shape functions. dphi(i,j) contains the i'th derivative of the j'th shape function
+    */
     static void Shape(const VecDouble &xi, VecDouble &phi, MatrixDouble &dphi);
     
-    // Computes the value of x for a given point in parameter space as a function of corner coordinates
+    /** @brief Computes the mapped point (x) for a given point in parameter space (xi) as a function of corner coordinates 
+     * @param xi [input] A vector containing the d parametric coordinates of the point to map
+     * @param NodeCo [input] A matrix containing the coordinates of the corner nodes of the element. NodeCo(i,j) contains the i'th coord of the j'th node
+     * @param x [output] A vector with the mapped coordinates
+    */
     static void X(const VecDouble &xi, MatrixDouble &NodeCo, VecDouble &x);
     
-    // Computes the value of x and gradx for a given point in parameter space
+    /** @brief Computes the mapped point (x) and the gradient of the map function at this point
+     * @param xi [input] A vector containing the d parametric coordinates of the point to map
+     * @param NodeCo [input] A matrix containing the coordinates of the corner nodes of the element. NodeCo(i,j) contains the i'th coord of the j'th node
+     * @param x [output] A vector with the mapped coordinates
+     * @param gradx [output] A matrix with the components of the gradient of the map at the point x. gradx(i,j) contains the derivative j of coordinate i
+    */
     static void GradX(const VecDouble &xi, MatrixDouble &NodeCo, VecDouble &x, MatrixDouble &gradx);
     
     // Return the number of nodes of the template
@@ -43,13 +60,13 @@ public:
     void SetNodes(const VecInt &nodes);
     
     // Set the node indices of the element
-    void GetNodes(VecInt &nodes);
+    void GetNodes(VecInt &nodes) const;
     
     // Return the index of a node
-    int NodeIndex(int node);
+    int NodeIndex(int node) const;
     
     // Return the neighbour along side
-    GeoElementSide Neighbour(int side);
+    GeoElementSide Neighbour(int side) const;
     
     // Initialize the neighbour data structure
     void SetNeighbour(int side, const GeoElementSide &neighbour);

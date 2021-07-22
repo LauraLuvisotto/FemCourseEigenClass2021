@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 
+#include "IntRule.h"
+///\cond
 #include <iostream> 
 #include <vector> 
-#include "IntRule.h"
 #include <cmath>
 #include <iomanip>
+///\endcond
 
 using namespace std;
 
@@ -43,7 +45,7 @@ int IntRule::NPoints() const {
     return fWeights.size();
 }
 
-void IntRule::Print(std::ostream &out) {
+void IntRule::Print(std::ostream &out) const {
     VecDouble co(fPoints.cols());
     double w;
 

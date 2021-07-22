@@ -10,6 +10,10 @@
 
 #include "IntRuleTetrahedron.h"
 
+/**
+ @brief Defines the topology associated with a tetrahedron
+ @ingroup topology
+ */
 class TopologyTetrahedron
 {
 public:
@@ -30,7 +34,7 @@ public:
     static int NSideNodes(int side);
     
     // Local node index of a node associated with a side
-    static int SideNodeIndex(int side, int node);
+    static int SideNodeLocIndex(int side, int node);
     
     // Return the enumerated element type
     static MElementType Type();
